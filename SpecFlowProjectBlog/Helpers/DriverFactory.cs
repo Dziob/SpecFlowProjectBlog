@@ -18,15 +18,15 @@ namespace SpecFlowProjectBlog.Helpers
             IWebDriver driver;
             switch (driverType)
             {
-                case driverType.Chrome:
+                case DriverType.Chrome:
                     driver=new ChromeDriver();
                     break;
 
-                    case driverType.Firefox:
+                case DriverType.Firefox:
                     driver=new FirefoxDriver(); 
                     break;
 
-                case driverType.Edge:
+                case DriverType.Edge:
                     driver = new EdgeDriver();
                     break;
                 default:

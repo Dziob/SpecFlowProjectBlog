@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SpecFlowProjectBlog.Helpers;
 using TechTalk.SpecFlow;
 
 
@@ -9,21 +10,21 @@ namespace SpecFlowProjectBlog.Settings
     {
         private IWebDriver driver;
 
-        [BeforeScenario("@tag1")]
+        [BeforeScenario]
         public void BeforeScenario()
         {
  
-            driver = DriverFactory
+            driver = DriverFactory.ReturnDriver(DriverType.Chrome);
+            ScenarioContext.Current["driver"]= driver;  
         }
 
-        [BeforeScenario(Order = 1)]
-        public void FirstBeforeScenario()
-        {
-            
 
         [AfterScenario]
         public void AfterScenario()
         {
+            driver.Close();
+            driver.Dispose();
+           
             
         }
     }
