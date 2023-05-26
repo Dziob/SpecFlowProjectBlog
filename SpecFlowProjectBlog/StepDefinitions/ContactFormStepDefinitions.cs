@@ -1,36 +1,40 @@
-﻿using NUnit.Framework;
+using Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Xml.Linq;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowProjectBlog.StepDefinitions
 {
-    internal class ContactFormSteps
+    [Binding]
+    public class ContactFormStepDefinitions
     {
         private IWebDriver driver;
-        public ContactFormSteps() {
+        public ContactFormStepDefinitions()
+        {
             driver = (IWebDriver)ScenarioContext.Current["driver"];
         }
 
-        [Given(@"I enter to ""(.*)"" page")]
+        [Given(@"I enter to '([^']*)' page")]
         public void GivenIEnterToPage(string name)
         {
             string url = null;
             if (name == "home")
                 url = "https://courseofautomationtesting.wordpress.com/";
             driver.Navigate().GoToUrl(url);
-
+            
+           
+           
         }
 
-        [Given(@"I click on ""(.*)"" in menu")]
-        public void GivenIClickInInMenu(string option)
+        [Given(@"I click on '([^']*)' in menu")]
+        public void GivenIClickOnInMenu(string option)
         {
-            var menuElements = driver.FindElements(By.ClassName("menu-primary-container"));
+           
+            var menuElements = driver.FindElements(By.CssSelector("#site-navigation .menu-item"));
 
             switch (option)
             {
@@ -39,10 +43,10 @@ namespace SpecFlowProjectBlog.StepDefinitions
                     break;
 
                 case "About":
-                    menuElements.First(x => x.Text == "About").Click(); 
+                    menuElements.First(x => x.Text == "About").Click();
                     break;
 
-                case "Cpntact":
+                case "Contact":
                     menuElements.First(x => x.Text == "Contact").Click();
                     Assert.True(driver.Url.Contains("/contact"));
                     break;
@@ -52,27 +56,29 @@ namespace SpecFlowProjectBlog.StepDefinitions
         [When(@"I fill contact form")]
         public void WhenIFillContactForm()
         {
+            
             var name = driver.FindElement(By.Id("g3-name"));
             var email = driver.FindElement(By.Id("g3-email"));
             var website = driver.FindElement(By.Id("g3-website"));
             var comment = driver.FindElement(By.Id("contact-form-comment-g3-comment"));
-            var submitBtn = driver.FindElement(By.ClassName("pushbutton-wide"));
-            name.SendKeys("Name");
+            var submitBtn = driver.FindElement(By.XPath("//button[@class='pushbutton-wide']"));
+           
+
+
+            name.SendKeys("Name" + Keys.PageDown);
             email.SendKeys("test@email.com");
             website.SendKeys("www.mytest.site");
             comment.SendKeys("My test comment");
+            
+
             submitBtn.Click();
         }
 
-        [Then(@"I expect to see message as ""(.*)""")]
-        public void ThenIExpectToSeeMessage(string message)
+        [Then(@"I expect to see message as '([^']*)'")]
+        public void ThenIExpectToSeeMessageAs(string message)
         {
             var expectedText = driver.FindElement(By.Id("contact-form-success-header"));
             Assert.AreEqual(expectedText.Text, message);
         }
-
-
-
-
     }
 }
