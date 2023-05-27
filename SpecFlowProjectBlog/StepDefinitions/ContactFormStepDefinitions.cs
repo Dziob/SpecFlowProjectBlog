@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SpecFlowProjectBlog.Pages;
 using System;
 using System.Xml.Linq;
 using TechTalk.SpecFlow;
@@ -25,15 +26,15 @@ namespace SpecFlowProjectBlog.StepDefinitions
             if (name == "home")
                 url = "https://courseofautomationtesting.wordpress.com/";
             driver.Navigate().GoToUrl(url);
-            
-           
-           
+
+
+
         }
 
         [Given(@"I click on '([^']*)' in menu")]
         public void GivenIClickOnInMenu(string option)
         {
-           
+
             var menuElements = driver.FindElements(By.CssSelector("#site-navigation .menu-item"));
 
             switch (option)
@@ -56,20 +57,20 @@ namespace SpecFlowProjectBlog.StepDefinitions
         [When(@"I fill contact form")]
         public void WhenIFillContactForm()
         {
-            
+         
             var name = driver.FindElement(By.Id("g3-name"));
             var email = driver.FindElement(By.Id("g3-email"));
             var website = driver.FindElement(By.Id("g3-website"));
             var comment = driver.FindElement(By.Id("contact-form-comment-g3-comment"));
             var submitBtn = driver.FindElement(By.XPath("//button[@class='pushbutton-wide']"));
-           
+
 
 
             name.SendKeys("Name" + Keys.PageDown);
             email.SendKeys("test@email.com");
             website.SendKeys("www.mytest.site");
             comment.SendKeys("My test comment");
-            
+
 
             submitBtn.Click();
         }

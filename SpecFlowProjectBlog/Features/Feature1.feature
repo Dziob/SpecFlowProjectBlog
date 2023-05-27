@@ -1,4 +1,4 @@
-﻿Feature: Feature1
+﻿Feature: Contacting by contact form
 
 A short summary of the feature
 
