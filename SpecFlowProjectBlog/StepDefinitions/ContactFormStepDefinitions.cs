@@ -1,12 +1,6 @@
-using Microsoft.VisualBasic.FileIO;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SpecFlowProjectBlog.Pages;
-using System;
-using System.Xml.Linq;
-using TechTalk.SpecFlow;
+
 
 namespace SpecFlowProjectBlog.StepDefinitions
 {
